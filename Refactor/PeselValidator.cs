@@ -26,7 +26,7 @@ namespace Refactor
             {
                 peselValid = false;
             }
-            else if (DateFromPesel(pesel) == null)
+            else if (CorrectDateInPesel(pesel))
             {
                 peselValid = false;
             }
@@ -41,8 +41,8 @@ namespace Refactor
 
         public bool PeselAlgorithmValid(string value)
         {
-            int[] weights = { 1, 3, 7, 9, 1, 3, 7, 9, 1, 3 };
-            char[] peselDigits = value.ToCharArray();
+            var weights = new int[] { 1, 3, 7, 9, 1, 3, 7, 9, 1, 3 };
+            var peselDigits = value.ToCharArray();
             long sum = 0;
 
             for (int i = 0; i < 10; i++)
@@ -58,23 +58,23 @@ namespace Refactor
         }
 
 
-        public DateTime? DateFromPesel(string value)
+        public bool CorrectDateInPesel(string value)
         {
             try
             {
-                Dictionary<int, int> centuryFromMonthDict = new Dictionary<int, int>() { { 0, 1900 }, { 1, 1900 }, { 2, 2000 }, { 3, 2000 }, { 4, 2100 }, { 5, 2100 }, { 6, 2200 }, { 7, 2200 }, { 8, 1800 }, { 9, 1800 } };
+                var centuryFromMonthDict = new Dictionary<int, int>() { { 0, 1900 }, { 1, 1900 }, { 2, 2000 }, { 3, 2000 }, { 4, 2100 }, { 5, 2100 }, { 6, 2200 }, { 7, 2200 }, { 8, 1800 }, { 9, 1800 } };
 
-                string datePesel = value.Substring(0, 6);
-                int monthCenturyId = int.Parse(datePesel.Substring(2, 1));
-                int monthPesel = monthCenturyId % 2 == 0 ? int.Parse(datePesel.Substring(3, 1)) : int.Parse(string.Format("1{0}", datePesel.Substring(3, 1)));
-                int dayPesel = int.Parse(datePesel.Substring(4, 2));
-                int yearPesel = centuryFromMonthDict[monthCenturyId] + int.Parse(datePesel.Substring(0, 2));
-                DateTime dateFromPesel = new DateTime(yearPesel, monthPesel, dayPesel);
-                return dateFromPesel;
+                var datePesel = value.Substring(0, 6);
+                var monthCenturyId = int.Parse(datePesel.Substring(2, 1));
+                var monthPesel = monthCenturyId % 2 == 0 ? int.Parse(datePesel.Substring(3, 1)) : int.Parse(string.Format("1{0}", datePesel.Substring(3, 1)));
+                var dayPesel = int.Parse(datePesel.Substring(4, 2));
+                var yearPesel = centuryFromMonthDict[monthCenturyId] + int.Parse(datePesel.Substring(0, 2));
+                var dateFromPesel = new DateTime(yearPesel, monthPesel, dayPesel);
+                return dateFromPesel == null;
             }
             catch
             {
-                return null;
+                return false;
             }
 
         }
