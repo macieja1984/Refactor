@@ -43,6 +43,8 @@
     <Compile Include="ElseIf.cs" />
     <Compile Include="MutliClassFile.cs" />
     <Compile Include="NestedIf.cs" />
+    <Compile Include="PartialClass.cs" />
+    <Compile Include="Partial\PartialClass.cs" />
     <Compile Include="PeselValidator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TooManyParameters.cs" />
