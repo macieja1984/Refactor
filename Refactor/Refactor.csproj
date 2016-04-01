@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ElseIf.cs" />
+    <Compile Include="MutliClassFile.cs" />
     <Compile Include="NestedIf.cs" />
     <Compile Include="PeselValidator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
